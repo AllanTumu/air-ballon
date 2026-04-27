@@ -46,9 +46,19 @@ services:
       GF_AUTH_ANONYMOUS_ENABLED: "true"
       GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"
       GF_AUTH_ANONYMOUS_ORG_NAME: "Main Org."
-      GF_AUTH_DISABLE_LOGIN_FORM: "false"
+      # Hide the login form / sign-in button from anonymous visitors. They're
+      # not meant to log in. Admins can still authenticate via /login (basic
+      # auth flow remains enabled below).
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_AUTH_DISABLE_SIGNOUT_MENU: "true"
       GF_USERS_DEFAULT_THEME: "dark"
-      # Allow anonymous viewers to load dashboards directly via URL:
+      # When a viewer visits the Grafana root (/), serve our dashboard rather
+      # than the default Grafana home page. This makes shallweflytomorrow.com
+      # land directly on "Will balloons fly tomorrow?".
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/cappadocia-flight-conditions.json
+      # Hide the news feed and announcements panel — distracting for non-technical viewers.
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+      # Basic auth still enabled for admin login (kept on so we can manage it):
       GF_AUTH_BASIC_ENABLED: "true"
       # Permit HTML in Text panels (needed for the Windy.com live wind embed
       # and any future iframe content). Trade-off: dashboard editors with
