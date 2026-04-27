@@ -29,5 +29,5 @@ Initial public release.
 - One-command Docker Compose stack (Postgres + ingester + Grafana + nginx).
 - DigitalOcean deployment guide with HTTPS via Let's Encrypt.
 
-[Unreleased]: https://github.com/allantumu/air-ballon/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/allantumu/air-ballon/releases/tag/v0.1.0
+[Unreleased]: https://github.com/AllanTumu/air-ballon/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/AllanTumu/air-ballon/releases/tag/v0.1.0

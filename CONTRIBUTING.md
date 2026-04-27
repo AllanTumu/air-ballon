@@ -19,7 +19,7 @@ Before you start substantial work, please open an issue to discuss it. This avoi
 ## Quick start for development
 
 ```bash
-git clone https://github.com/allantumu/air-ballon.git
+git clone https://github.com/AllanTumu/air-ballon.git
 cd air-ballon
 cp .env.example .env
 # Edit .env — change DB_PASSWORD and GRAFANA_ADMIN_PASSWORD at minimum.

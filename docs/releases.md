@@ -33,9 +33,9 @@ Pre-release suffixes (`-rc.1`, `-beta.1`) are allowed and trigger a GitHub pre-r
 2. **Update the compare links** at the bottom of `CHANGELOG.md`:
 
    ```markdown
-   [Unreleased]: https://github.com/allantumu/air-ballon/compare/v0.2.0...HEAD
-   [0.2.0]: https://github.com/allantumu/air-ballon/compare/v0.1.0...v0.2.0
-   [0.1.0]: https://github.com/allantumu/air-ballon/releases/tag/v0.1.0
+   [Unreleased]: https://github.com/AllanTumu/air-ballon/compare/v0.2.0...HEAD
+   [0.2.0]: https://github.com/AllanTumu/air-ballon/compare/v0.1.0...v0.2.0
+   [0.1.0]: https://github.com/AllanTumu/air-ballon/releases/tag/v0.1.0
    ```
 
 3. **Open a release PR** titled `chore(release): v0.2.0`. Get it reviewed and merged. CI must be green.
@@ -51,7 +51,7 @@ Pre-release suffixes (`-rc.1`, `-beta.1`) are allowed and trigger a GitHub pre-r
 
    The `release.yml` workflow extracts the matching `## [0.2.0]` section from `CHANGELOG.md` and creates a GitHub Release.
 
-5. **Verify the release** at `https://github.com/allantumu/air-ballon/releases`.
+5. **Verify the release** at `https://github.com/AllanTumu/air-ballon/releases`.
 
 ## Deploying a release
 

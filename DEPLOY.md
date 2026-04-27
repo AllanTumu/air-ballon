@@ -80,7 +80,7 @@ Log out and back in as `deploy`.
 
 ```bash
 cd ~
-git clone https://github.com/allantumu/air-ballon.git
+git clone https://github.com/AllanTumu/air-ballon.git
 cd air-ballon
 git checkout v0.1.0   # pin to a release tag — see docs/releases.md for the latest
 cp .env.example .env

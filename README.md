@@ -1,8 +1,8 @@
 # Cappadocia Balloon Flight Conditions
 
-[![CI](https://github.com/allantumu/air-ballon/actions/workflows/ci.yml/badge.svg)](https://github.com/allantumu/air-ballon/actions/workflows/ci.yml)
+[![CI](https://github.com/AllanTumu/air-ballon/actions/workflows/ci.yml/badge.svg)](https://github.com/AllanTumu/air-ballon/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Latest release](https://img.shields.io/github/v/release/allantumu/air-ballon?display_name=tag&sort=semver)](https://github.com/allantumu/air-ballon/releases)
+[![Latest release](https://img.shields.io/github/v/release/AllanTumu/air-ballon?display_name=tag&sort=semver)](https://github.com/AllanTumu/air-ballon/releases)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 A community-maintained, open-source Grafana dashboard that tells you whether hot-air balloons are likely to fly over Göreme tomorrow morning — and over the next 10 days.
@@ -56,7 +56,7 @@ The scoring thresholds are documented in [`docs/data-sources.md`](docs/data-sour
 ## Quick start (local)
 
 ```bash
-git clone https://github.com/allantumu/air-ballon.git
+git clone https://github.com/AllanTumu/air-ballon.git
 cd air-ballon
 cp .env.example .env
 # Edit .env — at minimum change the DB and Grafana passwords.
