@@ -1,0 +1,62 @@
+name: Threshold calibration
+description: Report a morning where the dashboard verdict didn't match what actually happened.
+title: "[Calibration] "
+labels: ["calibration", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        These reports are the highest-value contribution to this project. Multiple data points beat a single one — even one accurate ground-truth is useful.
+
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: The morning in question, in YYYY-MM-DD.
+      placeholder: 2026-04-15
+    validations:
+      required: true
+
+  - type: dropdown
+    id: dashboard-verdict
+    attributes:
+      label: What did the dashboard show?
+      options:
+        - HIGH CHANCE (GO)
+        - MAYBE (MARGINAL)
+        - NO CHANCE (NO_GO)
+        - I don't remember
+    validations:
+      required: true
+
+  - type: input
+    id: dashboard-score
+    attributes:
+      label: Score (if you noted it)
+      placeholder: 78
+
+  - type: dropdown
+    id: actual-outcome
+    attributes:
+      label: What actually happened?
+      options:
+        - All operators flew
+        - Some flew, some cancelled
+        - All cancelled
+        - I don't know
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source for the actual outcome
+      description: Operator post, your own observation, news article, photos, anything we can verify against.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Wind conditions you noticed, fog, anything else relevant.

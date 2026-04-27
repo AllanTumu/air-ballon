@@ -1,0 +1,65 @@
+name: New data source
+description: Suggest a new weather, satellite, or aviation data source.
+title: "[Source] "
+labels: ["data-source", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We bias toward sources that are free, public, well-documented, and stable. Read CONTRIBUTING.md for more.
+
+  - type: input
+    id: source-name
+    attributes:
+      label: Source name
+      placeholder: EUMETSAT Sentinel-3 SLSTR
+    validations:
+      required: true
+
+  - type: input
+    id: source-url
+    attributes:
+      label: Source URL
+      placeholder: https://example.org/api
+    validations:
+      required: true
+
+  - type: dropdown
+    id: access
+    attributes:
+      label: Access
+      options:
+        - Free, no registration
+        - Free, registration required
+        - Free, API key required
+        - Paid
+    validations:
+      required: true
+
+  - type: input
+    id: rate-limits
+    attributes:
+      label: Rate limits
+      placeholder: 10 000 requests / day, 5 / second
+
+  - type: input
+    id: license
+    attributes:
+      label: Data license
+      placeholder: CC BY 4.0 / public domain / proprietary
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: What does it add?
+      description: What weather signal or feature would this enable that we don't have today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else — sample response shape, region coverage, gotchas.

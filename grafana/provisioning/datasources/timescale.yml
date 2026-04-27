@@ -1,0 +1,28 @@
+apiVersion: 1
+
+# Delete any pre-existing Balloon-DB datasource so the pinned-UID version
+# below replaces it cleanly. Safe to leave in place — only acts on first
+# load after a name change.
+deleteDatasources:
+  - name: Balloon-DB
+    orgId: 1
+
+datasources:
+  - name: Balloon-DB
+    uid: Balloon-DB                # pin a stable UID so dashboard JSON references resolve
+    type: postgres
+    access: proxy
+    url: db:5432
+    user: ${DB_USER}
+    secureJsonData:
+      password: ${DB_PASSWORD}
+    jsonData:
+      database: ${DB_NAME}
+      sslmode: disable
+      maxOpenConns: 4
+      maxIdleConns: 2
+      connMaxLifetime: 14400
+      postgresVersion: 1500
+      timescaledb: true
+    isDefault: true
+    editable: false

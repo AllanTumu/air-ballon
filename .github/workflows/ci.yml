@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    name: Lint & test ingester
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: ingester/requirements.txt
+
+      - name: Install dependencies
+        working-directory: ingester
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install ruff
+
+      - name: Lint
+        working-directory: ingester
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Unit tests
+        working-directory: ingester
+        run: python -m unittest discover -v tests
+
+  validate-dashboard:
+    name: Validate dashboard JSON
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: jq is JSON
+        run: jq -e . grafana/dashboards/cappadocia-flight-conditions.json > /dev/null
+
+      - name: Datasource UID is pinned
+        run: |
+          if grep -q '"datasource":[[:space:]]*{[^}]*"uid":[[:space:]]*"Balloon-DB"' grafana/dashboards/cappadocia-flight-conditions.json; then
+            echo "Found pinned Balloon-DB datasource references."
+          else
+            echo "No panels reference the Balloon-DB datasource UID — check the export."
+            exit 1
+          fi
+
+  compose-config:
+    name: docker compose config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Render compose with placeholder env
+        run: |
+          cp .env.example .env
+          docker compose config > /dev/null

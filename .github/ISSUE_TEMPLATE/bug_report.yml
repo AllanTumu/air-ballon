@@ -1,0 +1,62 @@
+name: Bug report
+description: Report something broken in the dashboard, ingester, or deploy.
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. The more reproducible the report, the faster we can fix it.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the problem.
+      placeholder: After running `docker compose up -d`, the dashboard panels stay empty.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      placeholder: Panels should show forecast data within 60 seconds.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: From a clean clone, ideally.
+      placeholder: |
+        1. git clone ...
+        2. cp .env.example .env
+        3. docker compose up -d
+        4. open http://localhost:3030
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Output of `docker compose logs ingester | tail -100` or `docker compose logs grafana | tail -50`.
+      render: shell
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `git rev-parse --short HEAD`.
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: macOS 14.5, Docker 27.1.2, Grafana 11.2.0
+    validations:
+      required: true
