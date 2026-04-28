@@ -17,13 +17,11 @@ if [[ ! -f "$DUMP" ]]; then
     exit 1
 fi
 
-if [[ -z "${DB_USER:-}" || -z "${DB_NAME:-}" ]]; then
-    if [[ -f "$COMPOSE_PROJECT_DIR/.env" ]]; then
-        set -a
-        # shellcheck disable=SC1091
-        . "$COMPOSE_PROJECT_DIR/.env"
-        set +a
-    fi
+# Read just DB_USER and DB_NAME from .env (grep, not source — see backup.sh
+# for the same reason).
+if [[ -f "$COMPOSE_PROJECT_DIR/.env" ]]; then
+    : "${DB_USER:=$(grep -E '^DB_USER=' "$COMPOSE_PROJECT_DIR/.env" | head -1 | cut -d= -f2-)}"
+    : "${DB_NAME:=$(grep -E '^DB_NAME=' "$COMPOSE_PROJECT_DIR/.env" | head -1 | cut -d= -f2-)}"
 fi
 
 : "${DB_USER:?DB_USER not set}"

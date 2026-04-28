@@ -45,11 +45,15 @@ SELECT add_compression_policy(
 -- ---------------------------------------------------------------------------
 -- taf_forecasts: compress chunks older than 14 days. TAFs are short-lived
 -- forecasts so compression kicks in quickly.
+--
+-- Include valid_from and fcst_change in the orderby so TimescaleDB doesn't
+-- warn about un-segmented PRIMARY KEY columns. issue_time is the time
+-- column; the rest of the PK feeds the orderby.
 -- ---------------------------------------------------------------------------
 ALTER TABLE taf_forecasts SET (
     timescaledb.compress,
     timescaledb.compress_segmentby = 'location_id',
-    timescaledb.compress_orderby = 'issue_time DESC'
+    timescaledb.compress_orderby = 'issue_time DESC, valid_from DESC, fcst_change'
 );
 
 SELECT add_compression_policy(

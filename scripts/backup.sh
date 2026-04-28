@@ -27,14 +27,13 @@ RETAIN_DAYS="${RETAIN_DAYS:-30}"
 RETAIN_REMOTE_DAYS="${RETAIN_REMOTE_DAYS:-90}"
 COMPOSE_PROJECT_DIR="${COMPOSE_PROJECT_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 
-# Load .env for DB_USER / DB_NAME if not already in the environment.
-if [[ -z "${DB_USER:-}" || -z "${DB_NAME:-}" ]]; then
-    if [[ -f "$COMPOSE_PROJECT_DIR/.env" ]]; then
-        set -a
-        # shellcheck disable=SC1091
-        . "$COMPOSE_PROJECT_DIR/.env"
-        set +a
-    fi
+# Read just DB_USER and DB_NAME from .env. Sourcing the whole file would
+# fail on values that contain shell-special characters (e.g. parens in
+# INGESTER_USER_AGENT='...(+https://...)' which bash interprets as a
+# subshell). Grep is more robust and we only need two values.
+if [[ -f "$COMPOSE_PROJECT_DIR/.env" ]]; then
+    : "${DB_USER:=$(grep -E '^DB_USER=' "$COMPOSE_PROJECT_DIR/.env" | head -1 | cut -d= -f2-)}"
+    : "${DB_NAME:=$(grep -E '^DB_NAME=' "$COMPOSE_PROJECT_DIR/.env" | head -1 | cut -d= -f2-)}"
 fi
 
 : "${DB_USER:?DB_USER not set (in env or .env)}"
