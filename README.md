@@ -7,7 +7,7 @@
 
 A community-maintained, open-source Grafana dashboard that tells you whether hot-air balloons are likely to fly over Göreme tomorrow morning — and over the next 10 days.
 
-Inspired by the [Northern Lights aurora dashboards](https://aurora-alerts.uk/) shown at Grafana labs and built after one too many people (including the author) flew across the world for a Cappadocia balloon ride only to be cancelled at sunrise.
+Inspired by the Northern Lights aurora dashboard shown at Grafana Conference 2026 Barcelona, and built after one too many people (including the author) flew across the world for a Cappadocia balloon ride only to be cancelled at sunrise.
 
 ## Contents
 
@@ -135,4 +135,4 @@ MIT — see [LICENSE](LICENSE).
 
 - Forecast data © Open-Meteo (CC BY 4.0).
 - METAR/TAF data from the FAA Aviation Weather Center (public domain).
-- Inspired by the aurora-borealis dashboards demoed at GrafanaCONline.
+- Inspired by the Northern Lights aurora dashboard shown at Grafana Conference 2026 Barcelona.
