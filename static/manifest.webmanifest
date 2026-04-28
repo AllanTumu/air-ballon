@@ -1,0 +1,31 @@
+{
+  "name": "Shall We Fly Tomorrow?",
+  "short_name": "Fly Tomorrow",
+  "description": "Live hot-air balloon flight conditions for Cappadocia.",
+  "start_url": "/d/cappadocia-balloons/cappadocia-balloon-flight-conditions?orgId=1&refresh=10m",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b0e14",
+  "theme_color": "#ff6e7f",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["weather", "travel", "lifestyle"]
+}

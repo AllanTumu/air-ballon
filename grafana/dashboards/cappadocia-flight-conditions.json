@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "Hot-air balloon flight conditions for Cappadocia \u2014 likelihood that flights will be cleared on each morning, broken down by every weather factor that drives the call. Open data, open source.",
+  "description": "Hot-air balloon flight conditions for Cappadocia — likelihood that flights will be cleared on each morning, broken down by every weather factor that drives the call. Open data, open source.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
@@ -65,12 +65,12 @@
     {
       "type": "stat",
       "id": 1,
-      "title": "Next sunrise window verdict \u2014 $launch_site",
+      "title": "Next sunrise window verdict — $launch_site",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "Worst-case verdict across the 04\u201307 local-time launch window of the next morning, based on the latest forecast.",
+      "description": "Worst-case verdict across the 04–07 local-time launch window of the next morning, based on the latest forecast.",
       "gridPos": {
         "x": 0,
         "y": 5,
@@ -173,7 +173,7 @@
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "0\u2013100. \u226570 = GO, 40\u201369 = MARGINAL, <40 = NO-GO.",
+      "description": "0–100. ≥70 = GO, 40–69 = MARGINAL, <40 = NO-GO.",
       "gridPos": {
         "x": 8,
         "y": 5,
@@ -231,12 +231,12 @@
     {
       "type": "stat",
       "id": 3,
-      "title": "Live METAR \u2014 Kapadokya (LTAZ)",
+      "title": "Live METAR — Kapadokya (LTAZ)",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "Latest METAR observation. CAVOK = ceiling and visibility OK (\u226510km, no significant cloud below 5000ft).",
+      "description": "Latest METAR observation. CAVOK = ceiling and visibility OK (≥10km, no significant cloud below 5000ft).",
       "gridPos": {
         "x": 16,
         "y": 5,
@@ -277,14 +277,14 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT wind_speed_kt AS \"Wind kt\", wind_dir_deg AS \"Dir \u00b0\", wind_gust_kt AS \"Gust kt\", flight_cat AS \"Cat\" FROM metar_observations WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz') ORDER BY obs_time DESC LIMIT 1"
+          "rawSql": "SELECT wind_speed_kt AS \"Wind kt\", wind_dir_deg AS \"Dir °\", wind_gust_kt AS \"Gust kt\", flight_cat AS \"Cat\" FROM metar_observations WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz') ORDER BY obs_time DESC LIMIT 1"
         }
       ]
     },
     {
       "type": "row",
       "id": 101,
-      "title": "Next 10 days \u2014 every launch site",
+      "title": "Next 10 days — every launch site",
       "gridPos": {
         "x": 0,
         "y": 41,
@@ -302,7 +302,7 @@
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "Worst-case verdict across each morning's 04\u201307 local launch window for every launch site over the next 10 days.",
+      "description": "Worst-case verdict across each morning's 04–07 local launch window for every launch site over the next 10 days.",
       "gridPos": {
         "x": 0,
         "y": 42,
@@ -378,7 +378,7 @@
     {
       "type": "row",
       "id": 102,
-      "title": "Hourly breakdown \u2014 $launch_site",
+      "title": "Hourly breakdown — $launch_site",
       "gridPos": {
         "x": 0,
         "y": 24,
@@ -606,7 +606,7 @@
     {
       "type": "timeseries",
       "id": 8,
-      "title": "Visibility (m) \u2014 fog risk",
+      "title": "Visibility (m) — fog risk",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -685,12 +685,12 @@
     {
       "type": "timeseries",
       "id": 9,
-      "title": "CAPE (J/kg) & Lifted Index \u2014 convective risk",
+      "title": "CAPE (J/kg) & Lifted Index — convective risk",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "CAPE > 500 J/kg or LI < -2 = thunderstorm risk \u2192 no-go. Even distant storms produce dangerous gust fronts.",
+      "description": "CAPE > 500 J/kg or LI < -2 = thunderstorm risk → no-go. Even distant storms produce dangerous gust fronts.",
       "gridPos": {
         "x": 0,
         "y": 51,
@@ -817,7 +817,7 @@
     {
       "type": "timeseries",
       "id": 11,
-      "title": "Cloud cover (%) \u2014 low / mid / high",
+      "title": "Cloud cover (%) — low / mid / high",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -869,7 +869,7 @@
     {
       "type": "timeseries",
       "id": 12,
-      "title": "Boundary layer height (m) \u2014 inversion proxy",
+      "title": "Boundary layer height (m) — inversion proxy",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -1081,7 +1081,7 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT m.obs_time AS \"Time\", l.icao AS \"ICAO\", m.wind_speed_kt AS \"Wind kt\", m.wind_dir_deg AS \"Dir \u00b0\", m.wind_gust_kt AS \"Gust\", m.flight_cat AS \"Cat\", m.raw AS \"Raw\" FROM metar_observations m JOIN locations l ON l.id = m.location_id WHERE m.obs_time > NOW() - INTERVAL '12 hours' ORDER BY m.obs_time DESC LIMIT 50"
+          "rawSql": "SELECT m.obs_time AS \"Time\", l.icao AS \"ICAO\", m.wind_speed_kt AS \"Wind kt\", m.wind_dir_deg AS \"Dir °\", m.wind_gust_kt AS \"Gust\", m.flight_cat AS \"Cat\", m.raw AS \"Raw\" FROM metar_observations m JOIN locations l ON l.id = m.location_id WHERE m.obs_time > NOW() - INTERVAL '12 hours' ORDER BY m.obs_time DESC LIMIT 50"
         }
       ]
     },
@@ -1098,13 +1098,13 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "**A simple guide for visitors and tour guides.** This page tells you whether balloons are likely to fly over Cappadocia each morning, in plain language.\n\n**HIGH CHANCE** \u2014 Conditions look great. Flights very likely.  \n**MAYBE** \u2014 Borderline. Operators may run with reduced slots or cancel last minute.  \n**NO CHANCE** \u2014 Bad weather expected. Flights almost certainly cancelled.\n\n**Heads up:** This is unofficial. The real call is made by Turkey's Civil Aviation (SHGM) at ~04:00 each morning. Even on **HIGH CHANCE** mornings, weather can shift; even on **NO CHANCE** mornings, conditions can sometimes improve. Always book with an operator that gives you a refund or rebook on cancellation, and add a buffer day or two to your trip.\n\n**What the panels mean (quick translation):**\n- *Wind speeds* \u2014 calm is good, strong = grounded.  \n- *Visibility* \u2014 fog is the #1 cause of cancellations.  \n- *Precipitation* \u2014 any rain or snow grounds flights.  \n- *CAPE / Lifted Index* \u2014 thunderstorm risk.  \n- *Boundary layer* \u2014 very low at sunrise often means valley fog.\n\nOpen data, open source. Forecasts from [Open-Meteo](https://open-meteo.com), live aviation observations from [aviationweather.gov](https://aviationweather.gov)."
+        "content": "**A simple guide for visitors and tour guides.** This page tells you whether balloons are likely to fly over Cappadocia each morning, in plain language.\n\n**HIGH CHANCE** — Conditions look great. Flights very likely.  \n**MAYBE** — Borderline. Operators may run with reduced slots or cancel last minute.  \n**NO CHANCE** — Bad weather expected. Flights almost certainly cancelled.\n\n**Heads up:** This is unofficial. The real call is made by Turkey's Civil Aviation (SHGM) at ~04:00 each morning. Even on **HIGH CHANCE** mornings, weather can shift; even on **NO CHANCE** mornings, conditions can sometimes improve. Always book with an operator that gives you a refund or rebook on cancellation, and add a buffer day or two to your trip.\n\n**What the panels mean (quick translation):**\n- *Wind speeds* — calm is good, strong = grounded.  \n- *Visibility* — fog is the #1 cause of cancellations.  \n- *Precipitation* — any rain or snow grounds flights.  \n- *CAPE / Lifted Index* — thunderstorm risk.  \n- *Boundary layer* — very low at sunrise often means valley fog.\n\nOpen data, open source. Forecasts from [Open-Meteo](https://open-meteo.com), live aviation observations from [aviationweather.gov](https://aviationweather.gov)."
       }
     },
     {
       "type": "geomap",
       "id": 50,
-      "title": "Cappadocia launch sites \u2014 satellite",
+      "title": "Cappadocia launch sites — satellite",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -1140,6 +1140,17 @@
           }
         },
         "layers": [
+          {
+            "type": "xyz",
+            "name": "Rain radar",
+            "config": {
+              "url": "https://tilecache.rainviewer.com/v2/radar/nowcast_0/256/{z}/{x}/{y}/2/1_1.png",
+              "attribution": "Radar &copy; RainViewer",
+              "minZoom": 0,
+              "maxZoom": 10
+            },
+            "opacity": 0.6
+          },
           {
             "type": "markers",
             "name": "Launch sites",
@@ -1282,7 +1293,7 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT CASE WHEN wind_dir_vrb THEN 'Variable' WHEN wind_dir_deg IS NULL THEN '\u2014' WHEN wind_dir_deg < 22.5 OR wind_dir_deg >= 337.5 THEN 'N (north)' WHEN wind_dir_deg < 67.5  THEN 'NE (north-east)' WHEN wind_dir_deg < 112.5 THEN 'E (east)' WHEN wind_dir_deg < 157.5 THEN 'SE (south-east)' WHEN wind_dir_deg < 202.5 THEN 'S (south)' WHEN wind_dir_deg < 247.5 THEN 'SW (south-west)' WHEN wind_dir_deg < 292.5 THEN 'W (west)' ELSE 'NW (north-west)' END AS direction FROM metar_observations WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz') ORDER BY obs_time DESC LIMIT 1"
+          "rawSql": "SELECT CASE WHEN wind_dir_vrb THEN 'Variable' WHEN wind_dir_deg IS NULL THEN '—' WHEN wind_dir_deg < 22.5 OR wind_dir_deg >= 337.5 THEN 'N (north)' WHEN wind_dir_deg < 67.5  THEN 'NE (north-east)' WHEN wind_dir_deg < 112.5 THEN 'E (east)' WHEN wind_dir_deg < 157.5 THEN 'SE (south-east)' WHEN wind_dir_deg < 202.5 THEN 'S (south)' WHEN wind_dir_deg < 247.5 THEN 'SW (south-west)' WHEN wind_dir_deg < 292.5 THEN 'W (west)' ELSE 'NW (north-west)' END AS direction FROM metar_observations WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz') ORDER BY obs_time DESC LIMIT 1"
         }
       ]
     },
@@ -1298,6 +1309,316 @@
       },
       "collapsed": false,
       "panels": []
+    },
+    {
+      "type": "stat",
+      "id": 60,
+      "title": "Pressure trend (3h)",
+      "datasource": {
+        "type": "postgres",
+        "uid": "Balloon-DB"
+      },
+      "description": "Change in mean sea-level pressure over the last 3 hours vs. the 3 hours before that. Falling pressure (negative) often precedes worsening weather; rising pressure points to settling conditions.",
+      "gridPos": {
+        "x": 0,
+        "y": 78,
+        "w": 6,
+        "h": 5
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "colorMode": "value",
+        "graphMode": "none",
+        "orientation": "auto",
+        "justifyMode": "center"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 1,
+          "mappings": [
+            {
+              "type": "range",
+              "options": {
+                "from": -999,
+                "to": -1.5,
+                "result": {
+                  "text": "↘ Falling fast",
+                  "color": "red",
+                  "index": 0
+                }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": -1.5,
+                "to": -0.3,
+                "result": {
+                  "text": "↘ Falling",
+                  "color": "yellow",
+                  "index": 1
+                }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": -0.3,
+                "to": 0.3,
+                "result": {
+                  "text": "→ Steady",
+                  "color": "blue",
+                  "index": 2
+                }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": 0.3,
+                "to": 1.5,
+                "result": {
+                  "text": "↗ Rising",
+                  "color": "green",
+                  "index": 3
+                }
+              }
+            },
+            {
+              "type": "range",
+              "options": {
+                "from": 1.5,
+                "to": 999,
+                "result": {
+                  "text": "↗ Rising fast",
+                  "color": "green",
+                  "index": 4
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": -1.5
+              },
+              {
+                "color": "blue",
+                "value": -0.3
+              },
+              {
+                "color": "green",
+                "value": 0.3
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "Balloon-DB"
+          },
+          "format": "table",
+          "rawSql": "WITH last6 AS (  SELECT pressure_msl_hpa, valid_time,          ROW_NUMBER() OVER (ORDER BY valid_time DESC) rn   FROM forecast_hourly   WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site')     AND model_run = (SELECT MAX(model_run) FROM forecast_hourly                      WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site'))     AND valid_time <= NOW() + INTERVAL '6 hours'     AND valid_time >= NOW() - INTERVAL '6 hours' ) SELECT (AVG(CASE WHEN rn <= 3 THEN pressure_msl_hpa END) -         AVG(CASE WHEN rn  > 3 THEN pressure_msl_hpa END)) AS delta_hpa FROM last6"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "id": 61,
+      "title": "Days since last NO-CHANCE morning",
+      "datasource": {
+        "type": "postgres",
+        "uid": "Balloon-DB"
+      },
+      "description": "Consecutive days where the morning was at least MAYBE at the selected launch site. Resets when our score for any past morning was below 40.",
+      "gridPos": {
+        "x": 6,
+        "y": 78,
+        "w": 6,
+        "h": 5
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name",
+        "colorMode": "background",
+        "graphMode": "none",
+        "orientation": "auto",
+        "justifyMode": "center"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 5
+              },
+              {
+                "color": "purple",
+                "value": 30
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "Balloon-DB"
+          },
+          "format": "table",
+          "rawSql": "SELECT GREATEST(0, EXTRACT(DAY FROM (NOW() - COALESCE(MAX(local_date)::timestamptz, NOW() - INTERVAL '999 days'))))::int AS days FROM v_sunrise_window WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site')   AND min_score < 40   AND local_date < CURRENT_DATE"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "id": 62,
+      "title": "Yesterday's verdict vs. reality",
+      "datasource": {
+        "type": "postgres",
+        "uid": "Balloon-DB"
+      },
+      "description": "Sanity check: was our verdict for yesterday consistent with what METAR actually observed at LTAZ during the launch window? Builds trust by showing we check ourselves.",
+      "gridPos": {
+        "x": 12,
+        "y": 78,
+        "w": 12,
+        "h": 5
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "colorMode": "background",
+        "graphMode": "none",
+        "orientation": "auto",
+        "justifyMode": "center"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "No data yesterday",
+                  "color": "grey",
+                  "index": 0
+                }
+              }
+            },
+            {
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "Mismatch — review",
+                  "color": "red",
+                  "index": 1
+                }
+              }
+            },
+            {
+              "type": "value",
+              "options": {
+                "2": {
+                  "text": "Marginal — borderline",
+                  "color": "yellow",
+                  "index": 2
+                }
+              }
+            },
+            {
+              "type": "value",
+              "options": {
+                "3": {
+                  "text": "Verdict matched reality",
+                  "color": "green",
+                  "index": 3
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        }
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "Balloon-DB"
+          },
+          "format": "table",
+          "rawSql": "WITH y_pred AS (   SELECT MIN(min_score) AS pred_score   FROM v_sunrise_window   WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site')     AND local_date = CURRENT_DATE - INTERVAL '1 day' ), y_obs AS (   SELECT MAX(wind_speed_kt) AS max_wind,          MIN(visibility_m)  AS min_vis   FROM metar_observations   WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz')     AND obs_time AT TIME ZONE 'Europe/Istanbul' >= ((CURRENT_DATE - INTERVAL '1 day') + TIME '04:00') AT TIME ZONE 'Europe/Istanbul'     AND obs_time AT TIME ZONE 'Europe/Istanbul' <  ((CURRENT_DATE - INTERVAL '1 day') + TIME '08:00') AT TIME ZONE 'Europe/Istanbul' ) SELECT CASE   WHEN p.pred_score IS NULL THEN 0   WHEN o.max_wind IS NULL THEN 1   WHEN p.pred_score >= 70 AND o.max_wind < 10 AND o.min_vis > 5000 THEN 3   WHEN p.pred_score <  40 AND (o.max_wind >= 10 OR o.min_vis < 3000) THEN 3   WHEN p.pred_score >= 40 AND p.pred_score < 70 THEN 2   ELSE 1 END AS match FROM y_pred p, y_obs o"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": 64,
+      "title": "",
+      "transparent": true,
+      "gridPos": {
+        "x": 0,
+        "y": 90,
+        "w": 24,
+        "h": 4
+      },
+      "options": {
+        "mode": "html",
+        "content": "<div style=\"display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;padding:16px;border-radius:8px;background:rgba(255,255,255,0.04);\"><span style=\"color:#ccc;font-size:14px;line-height:1.5;\">Open data, open source. If this saved your sunrise (or your booking), consider chipping in toward the €5/month hosting cost.</span><a href=\"https://buymeacoffee.com/yourname\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#FFDD00;color:#000;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px;\">☕ Buy me a coffee</a><a href=\"https://github.com/AllanTumu/air-ballon\" target=\"_blank\" rel=\"noopener\" style=\"color:#aaa;text-decoration:none;font-size:13px;\">★ Star on GitHub</a></div>"
+      }
     }
   ],
   "refresh": "10m",
@@ -1322,7 +1643,7 @@
         "refresh": 1,
         "current": {
           "selected": false,
-          "text": "G\u00f6reme",
+          "text": "Göreme",
           "value": "goreme"
         },
         "options": [],
@@ -1354,6 +1675,6 @@
   "timezone": "Europe/Istanbul",
   "title": "Cappadocia Balloon Flight Conditions",
   "uid": "cappadocia-balloons",
-  "version": 10,
+  "version": 15,
   "weekStart": ""
 }
