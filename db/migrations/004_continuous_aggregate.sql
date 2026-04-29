@@ -12,9 +12,23 @@
 
 -- ---------------------------------------------------------------------------
 -- Drop the old plain view first (continuous aggregates can't share names
--- with existing relations).
+-- with existing relations). DO NOT drop on subsequent runs — that would
+-- needlessly invalidate dependent objects.
 -- ---------------------------------------------------------------------------
-DROP VIEW IF EXISTS v_sunrise_window;
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1 FROM pg_class c
+        JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'v_sunrise_window' AND c.relkind = 'v'
+          AND n.nspname = current_schema()
+    ) AND NOT EXISTS (
+        SELECT 1 FROM timescaledb_information.continuous_aggregates
+        WHERE view_name = '_sunrise_window_agg'
+    ) THEN
+        DROP VIEW v_sunrise_window;
+    END IF;
+END $$;
 
 -- ---------------------------------------------------------------------------
 -- The raw continuous aggregate. We bucket by day in Istanbul time directly
@@ -25,7 +39,7 @@ DROP VIEW IF EXISTS v_sunrise_window;
 -- aggregate just the numeric columns from forecast_hourly here, then join
 -- to `locations` in a thin wrapper view below.
 -- ---------------------------------------------------------------------------
-CREATE MATERIALIZED VIEW _sunrise_window_agg
+CREATE MATERIALIZED VIEW IF NOT EXISTS _sunrise_window_agg
 WITH (timescaledb.continuous) AS
 SELECT
     location_id,
