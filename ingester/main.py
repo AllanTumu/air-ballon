@@ -24,7 +24,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 import db
 from config import Settings
-from sources import open_meteo, aviationweather as awc
+from sources import open_meteo, aviationweather as awc, shm_kapadokya as shm
 
 log = structlog.get_logger(__name__)
 
@@ -194,6 +194,54 @@ def job_aviation() -> None:
     log.info("aviation_job_done", metars=n_m, tafs=n_t, seconds=round(time.time() - started, 1))
 
 
+# --- SHM (Slot Hizmet Merkezi) verdict scraper -------------------------------
+#
+# Scrapes the official Cappadocia balloon flight verdict from
+# shmkapadokya.kapadokya.edu.tr. We persist every snapshot (cheap) so we can
+# later see when the duty officer flipped a sector. The view v_shm_latest
+# returns the freshest row per sector for the dashboard.
+
+SHM_COLS = [
+    "sector", "kind", "flag", "verdict",
+    "issued_at", "valid_from", "valid_to",
+]
+
+
+def _upsert_shm(verdicts: list) -> int:
+    if not verdicts:
+        return 0
+    cols = ", ".join(SHM_COLS)
+    placeholders = ", ".join(["%s"] * len(SHM_COLS))
+    updates = ", ".join(
+        f"{c} = EXCLUDED.{c}" for c in SHM_COLS if c not in ("sector", "issued_at")
+    )
+    sql = f"""
+        INSERT INTO shm_sector_verdict ({cols})
+        VALUES ({placeholders})
+        ON CONFLICT (sector, issued_at) DO UPDATE SET {updates}
+    """
+    payload = [
+        (v.sector, v.kind, v.flag, v.verdict, v.issued_at, v.valid_from, v.valid_to)
+        for v in verdicts
+    ]
+    with db.conn() as c:
+        with c.cursor() as cur:
+            cur.executemany(sql, payload)
+        c.commit()
+    return len(payload)
+
+
+def job_shm() -> None:
+    started = time.time()
+    try:
+        with httpx.Client(headers={"User-Agent": settings.user_agent}) as client:
+            verdicts = shm.fetch(client)
+        n = _upsert_shm(verdicts)
+        log.info("shm_job_done", rows=n, seconds=round(time.time() - started, 1))
+    except Exception as e:
+        log.error("shm_failed", error=str(e))
+
+
 # --- Historical backfill on startup ------------------------------------------
 
 def maybe_backfill() -> None:
@@ -242,11 +290,13 @@ def main() -> None:
     # First run: prime the database with current data.
     job_forecast()
     job_aviation()
+    job_shm()
     maybe_backfill()
 
     sched = BlockingScheduler(timezone="UTC")
     sched.add_job(job_forecast, "interval", minutes=settings.forecast_interval_min, id="forecast", max_instances=1)
     sched.add_job(job_aviation, "interval", minutes=settings.metar_interval_min, id="aviation", max_instances=1)
+    sched.add_job(job_shm, "interval", minutes=settings.shm_interval_min, id="shm", max_instances=1)
 
     def _stop(*_):
         log.info("ingester_stop")
@@ -256,7 +306,12 @@ def main() -> None:
     signal.signal(signal.SIGTERM, _stop)
     signal.signal(signal.SIGINT, _stop)
 
-    log.info("scheduler_start", forecast_min=settings.forecast_interval_min, metar_min=settings.metar_interval_min)
+    log.info(
+        "scheduler_start",
+        forecast_min=settings.forecast_interval_min,
+        metar_min=settings.metar_interval_min,
+        shm_min=settings.shm_interval_min,
+    )
     sched.start()
 
 

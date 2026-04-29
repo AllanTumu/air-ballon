@@ -11,6 +11,7 @@ class Settings:
     db_dsn: str
     forecast_interval_min: int   # how often to refresh Open-Meteo forecast
     metar_interval_min: int      # how often to fetch METAR/TAF
+    shm_interval_min: int        # how often to scrape the SHM verdict page
     historical_lookback_days: int  # backfill on first run
     user_agent: str
     log_level: str
@@ -24,6 +25,7 @@ class Settings:
             ),
             forecast_interval_min=int(os.environ.get("FORECAST_INTERVAL_MIN", "60")),
             metar_interval_min=int(os.environ.get("METAR_INTERVAL_MIN", "15")),
+            shm_interval_min=int(os.environ.get("SHM_INTERVAL_MIN", "10")),
             historical_lookback_days=int(os.environ.get("HISTORICAL_LOOKBACK_DAYS", "90")),
             user_agent=os.environ.get(
                 "INGESTER_USER_AGENT",

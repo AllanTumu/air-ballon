@@ -55,7 +55,7 @@
       "title": "Will balloons fly tomorrow morning?",
       "gridPos": {
         "x": 0,
-        "y": 4,
+        "y": 12,
         "w": 24,
         "h": 1
       },
@@ -73,7 +73,7 @@
       "description": "Worst-case verdict across the 04–07 local-time launch window of the next morning, based on the latest forecast.",
       "gridPos": {
         "x": 0,
-        "y": 5,
+        "y": 13,
         "w": 8,
         "h": 6
       },
@@ -176,7 +176,7 @@
       "description": "0–100. ≥70 = GO, 40–69 = MARGINAL, <40 = NO-GO.",
       "gridPos": {
         "x": 8,
-        "y": 5,
+        "y": 13,
         "w": 8,
         "h": 6
       },
@@ -239,7 +239,7 @@
       "description": "Latest METAR observation. CAVOK = ceiling and visibility OK (≥10km, no significant cloud below 5000ft).",
       "gridPos": {
         "x": 16,
-        "y": 5,
+        "y": 13,
         "w": 8,
         "h": 6
       },
@@ -287,7 +287,7 @@
       "title": "Next 10 days — every launch site",
       "gridPos": {
         "x": 0,
-        "y": 41,
+        "y": 49,
         "w": 24,
         "h": 1
       },
@@ -305,7 +305,7 @@
       "description": "Worst-case verdict across each morning's 04–07 local launch window for every launch site over the next 10 days.",
       "gridPos": {
         "x": 0,
-        "y": 42,
+        "y": 50,
         "w": 24,
         "h": 8
       },
@@ -381,7 +381,7 @@
       "title": "Hourly breakdown — $launch_site",
       "gridPos": {
         "x": 0,
-        "y": 24,
+        "y": 32,
         "w": 24,
         "h": 1
       },
@@ -399,7 +399,7 @@
       "description": "Composite likelihood, hour by hour. Vertical bands at 70 (GO) and 40 (MARGINAL).",
       "gridPos": {
         "x": 0,
-        "y": 25,
+        "y": 33,
         "w": 12,
         "h": 8
       },
@@ -471,7 +471,7 @@
       "description": "Pilots steer balloons by climbing into different wind layers. Look for variation across altitudes.",
       "gridPos": {
         "x": 12,
-        "y": 25,
+        "y": 33,
         "w": 12,
         "h": 8
       },
@@ -535,7 +535,7 @@
       "description": "Surface wind > 18 km/h or gusts > 25 km/h are typically a no-go. Big gust spread is dangerous on launch.",
       "gridPos": {
         "x": 0,
-        "y": 33,
+        "y": 41,
         "w": 12,
         "h": 8
       },
@@ -614,7 +614,7 @@
       "description": "Below 3000m is typically a no-go. Below 5000m is marginal. Cappadocia mornings can trap valley fog.",
       "gridPos": {
         "x": 12,
-        "y": 33,
+        "y": 41,
         "w": 12,
         "h": 8
       },
@@ -675,7 +675,7 @@
       "title": "Atmosphere",
       "gridPos": {
         "x": 0,
-        "y": 50,
+        "y": 58,
         "w": 24,
         "h": 1
       },
@@ -693,7 +693,7 @@
       "description": "CAPE > 500 J/kg or LI < -2 = thunderstorm risk → no-go. Even distant storms produce dangerous gust fronts.",
       "gridPos": {
         "x": 0,
-        "y": 51,
+        "y": 59,
         "w": 12,
         "h": 8
       },
@@ -775,7 +775,7 @@
       "description": "Any measurable rain or snow grounds a passenger flight.",
       "gridPos": {
         "x": 12,
-        "y": 51,
+        "y": 59,
         "w": 12,
         "h": 8
       },
@@ -825,7 +825,7 @@
       "description": "Low cloud determines ceiling. High cloud is mostly cosmetic but reduces sunrise photo quality.",
       "gridPos": {
         "x": 0,
-        "y": 59,
+        "y": 67,
         "w": 12,
         "h": 8
       },
@@ -877,7 +877,7 @@
       "description": "Very shallow boundary layer at sunrise often coincides with valley fog and inversions.",
       "gridPos": {
         "x": 12,
-        "y": 59,
+        "y": 67,
         "w": 12,
         "h": 8
       },
@@ -921,7 +921,7 @@
       "title": "History & observations",
       "gridPos": {
         "x": 0,
-        "y": 67,
+        "y": 75,
         "w": 24,
         "h": 1
       },
@@ -939,7 +939,7 @@
       "description": "Share of mornings in the last 90 days where conditions would have been GO.",
       "gridPos": {
         "x": 0,
-        "y": 68,
+        "y": 76,
         "w": 8,
         "h": 6
       },
@@ -1000,7 +1000,7 @@
       "description": "Live aviation observations from Kapadokya and Kayseri airports, last 12 hours.",
       "gridPos": {
         "x": 8,
-        "y": 68,
+        "y": 76,
         "w": 16,
         "h": 8
       },
@@ -1092,7 +1092,7 @@
       "datasource": null,
       "gridPos": {
         "x": 0,
-        "y": 80,
+        "y": 88,
         "w": 24,
         "h": 6
       },
@@ -1112,7 +1112,7 @@
       "description": "Six known balloon launch sites overlaid on satellite imagery. Marker color shows current 24-hour flight likelihood at each site.",
       "gridPos": {
         "x": 0,
-        "y": 12,
+        "y": 20,
         "w": 12,
         "h": 12
       },
@@ -1232,7 +1232,7 @@
       "title": "Live wind & weather over Cappadocia",
       "gridPos": {
         "x": 12,
-        "y": 12,
+        "y": 20,
         "w": 12,
         "h": 12
       },
@@ -1253,7 +1253,7 @@
       "description": "Latest reported wind direction at Kapadokya Airport, in compass terms.",
       "gridPos": {
         "x": 0,
-        "y": 74,
+        "y": 82,
         "w": 8,
         "h": 6
       },
@@ -1303,7 +1303,7 @@
       "title": "Cappadocia right now",
       "gridPos": {
         "x": 0,
-        "y": 11,
+        "y": 19,
         "w": 24,
         "h": 1
       },
@@ -1321,7 +1321,7 @@
       "description": "Change in mean sea-level pressure over the last 3 hours vs. the 3 hours before that. Falling pressure (negative) often precedes worsening weather; rising pressure points to settling conditions.",
       "gridPos": {
         "x": 0,
-        "y": 78,
+        "y": 86,
         "w": 6,
         "h": 5
       },
@@ -1451,7 +1451,7 @@
       "description": "Consecutive days where the morning was at least MAYBE at the selected launch site. Resets when our score for any past morning was below 40.",
       "gridPos": {
         "x": 6,
-        "y": 78,
+        "y": 86,
         "w": 6,
         "h": 5
       },
@@ -1519,7 +1519,7 @@
       "description": "Sanity check: was our verdict for yesterday consistent with what METAR actually observed at LTAZ during the launch window? Builds trust by showing we check ourselves.",
       "gridPos": {
         "x": 12,
-        "y": 78,
+        "y": 86,
         "w": 12,
         "h": 5
       },
@@ -1611,13 +1611,140 @@
       "transparent": true,
       "gridPos": {
         "x": 0,
-        "y": 90,
+        "y": 98,
         "w": 24,
         "h": 4
       },
       "options": {
         "mode": "html",
         "content": "<div style=\"display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;padding:16px;border-radius:8px;background:rgba(255,255,255,0.04);\"><span style=\"color:#ccc;font-size:14px;line-height:1.5;\">Open data, open source. If this saved your sunrise (or your booking), consider chipping in toward the €5/month hosting cost.</span><a href=\"https://buymeacoffee.com/yourname\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:#FFDD00;color:#000;border-radius:6px;text-decoration:none;font-weight:700;font-size:14px;\">☕ Buy me a coffee</a><a href=\"https://github.com/AllanTumu/air-ballon\" target=\"_blank\" rel=\"noopener\" style=\"color:#aaa;text-decoration:none;font-size:13px;\">★ Star on GitHub</a></div>"
+      }
+    },
+    {
+      "type": "row",
+      "id": 305,
+      "title": "Official SHM verdict (today, 04–16 local)",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 24,
+        "h": 1
+      },
+      "collapsed": false,
+      "panels": []
+    },
+    {
+      "type": "stat",
+      "id": 300,
+      "title": "Official SHM call for $launch_site",
+      "datasource": {
+        "type": "postgres",
+        "uid": "Balloon-DB"
+      },
+      "description": "Live verdict from Slot Hizmet Merkezi (Kapadokya University) for the SHM sector containing this launch site. Avanos = Sektör A, Göreme/Çavuşin/Uçhisar/Ortahisar = Sektör B, Ürgüp = Sektör C. Source: shmkapadokya.kapadokya.edu.tr",
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 24,
+        "h": 5
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value",
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "🔴 NO-FLY (UÇULMAZ)",
+                  "color": "red",
+                  "index": 0
+                }
+              }
+            },
+            {
+              "type": "value",
+              "options": {
+                "1": {
+                  "text": "🟡 RESTRICTED (SARI)",
+                  "color": "yellow",
+                  "index": 1
+                }
+              }
+            },
+            {
+              "type": "value",
+              "options": {
+                "2": {
+                  "text": "🟢 FLY (UÇULUR)",
+                  "color": "green",
+                  "index": 2
+                }
+              }
+            },
+            {
+              "type": "special",
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "— no data —",
+                  "color": "blue",
+                  "index": 3
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        }
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "postgres",
+            "uid": "Balloon-DB"
+          },
+          "format": "table",
+          "rawSql": "SELECT CASE l.shm_sector || '|' || s.flag WHEN 'A|red' THEN 0 WHEN 'B|red' THEN 0 WHEN 'C|red' THEN 0 WHEN 'A|yellow' THEN 1 WHEN 'B|yellow' THEN 1 WHEN 'C|yellow' THEN 1 WHEN 'A|green' THEN 2 WHEN 'B|green' THEN 2 WHEN 'C|green' THEN 2 ELSE NULL END AS state FROM locations l LEFT JOIN v_shm_latest s ON s.sector = l.shm_sector WHERE l.slug = '$launch_site'"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": 304,
+      "title": "",
+      "transparent": true,
+      "gridPos": {
+        "x": 0,
+        "y": 10,
+        "w": 24,
+        "h": 2
+      },
+      "options": {
+        "mode": "html",
+        "content": "<div style=\"text-align:center;color:#aaa;font-size:13px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:6px 0;\">${shm_meta}</div>"
       }
     }
   ],
@@ -1649,6 +1776,26 @@
         "options": [],
         "includeAll": false,
         "multi": false
+      },
+      {
+        "name": "shm_meta",
+        "type": "query",
+        "label": "SHM metadata",
+        "hide": 2,
+        "datasource": {
+          "type": "postgres",
+          "uid": "Balloon-DB"
+        },
+        "query": "SELECT 'Sektör ' || l.shm_sector || ' · Issued ' || to_char(s.issued_at AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' · Valid ' || to_char(s.valid_from AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || '–' || to_char(s.valid_to AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' local · source shmkapadokya.kapadokya.edu.tr' FROM locations l LEFT JOIN v_shm_latest s ON s.sector = l.shm_sector WHERE l.slug = '$launch_site'",
+        "refresh": 2,
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "options": [],
+        "includeAll": false,
+        "multi": false
       }
     ]
   },
@@ -1675,6 +1822,6 @@
   "timezone": "Europe/Istanbul",
   "title": "Cappadocia Balloon Flight Conditions",
   "uid": "cappadocia-balloons",
-  "version": 15,
+  "version": 19,
   "weekStart": ""
 }
