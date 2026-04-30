@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "Hot-air balloon flight conditions for Cappadocia — likelihood that flights will be cleared on each morning, broken down by every weather factor that drives the call. Open data, open source.",
+  "description": "Hot-air balloon flight conditions for Cappadocia - likelihood that flights will be cleared on each morning, broken down by every weather factor that drives the call. Open data, open source.",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
@@ -65,12 +65,12 @@
     {
       "type": "stat",
       "id": 1,
-      "title": "Next sunrise window verdict — $launch_site",
+      "title": "Next sunrise window verdict - $launch_site",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "Worst-case verdict across the 04–07 local-time launch window of the next morning, based on the latest forecast.",
+      "description": "Worst-case score across the 04-07 local-time launch window of the next morning, calibrated against the LTAZ TAF (cap at 25 if the TAF flags TS/CB convection) and bounded above at 85 (we don't claim certainty SHM has).",
       "gridPos": {
         "x": 0,
         "y": 13,
@@ -161,7 +161,7 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT MIN(flight_score) AS score FROM forecast_hourly f WHERE f.location_id = (SELECT id FROM locations WHERE slug = '$launch_site') AND f.model_run = (SELECT MAX(model_run) FROM forecast_hourly WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site')) AND f.valid_time AT TIME ZONE 'Europe/Istanbul' >= (CURRENT_DATE + INTERVAL '1 day' + TIME '04:00') AT TIME ZONE 'Europe/Istanbul' AND f.valid_time AT TIME ZONE 'Europe/Istanbul' <  (CURRENT_DATE + INTERVAL '1 day' + TIME '08:00') AT TIME ZONE 'Europe/Istanbul'"
+          "rawSql": "WITH our_raw AS (  SELECT MIN(flight_score) AS s  FROM forecast_hourly f  WHERE f.location_id = (SELECT id FROM locations WHERE slug = '$launch_site')    AND f.model_run = (SELECT MAX(model_run) FROM forecast_hourly WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site'))    AND f.valid_time AT TIME ZONE 'Europe/Istanbul' >= (CURRENT_DATE + INTERVAL '1 day' + TIME '04:00') AT TIME ZONE 'Europe/Istanbul'    AND f.valid_time AT TIME ZONE 'Europe/Istanbul' <  (CURRENT_DATE + INTERVAL '1 day' + TIME '08:00') AT TIME ZONE 'Europe/Istanbul'), taf AS (SELECT taf_no_fly FROM v_taf_day_flags WHERE local_date = (CURRENT_DATE + INTERVAL '1 day')::date) SELECT LEAST(85, CASE WHEN COALESCE((SELECT taf_no_fly FROM taf), FALSE) THEN LEAST((SELECT s FROM our_raw), 25) ELSE (SELECT s FROM our_raw) END) AS score"
         }
       ]
     },
@@ -173,7 +173,7 @@
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "0–100. ≥70 = GO, 40–69 = MARGINAL, <40 = NO-GO.",
+      "description": "0-100. ≥70 = HIGH CHANCE, 40-69 = MAYBE, <40 = NO CHANCE. Calibrated: capped at 25 if LTAZ TAF flags convection; ceiling at 85.",
       "gridPos": {
         "x": 8,
         "y": 13,
@@ -224,14 +224,14 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT MIN(flight_score) AS score FROM forecast_hourly f WHERE f.location_id = (SELECT id FROM locations WHERE slug = '$launch_site') AND f.model_run = (SELECT MAX(model_run) FROM forecast_hourly WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site')) AND f.valid_time AT TIME ZONE 'Europe/Istanbul' >= (CURRENT_DATE + INTERVAL '1 day' + TIME '04:00') AT TIME ZONE 'Europe/Istanbul' AND f.valid_time AT TIME ZONE 'Europe/Istanbul' < (CURRENT_DATE + INTERVAL '1 day' + TIME '08:00') AT TIME ZONE 'Europe/Istanbul'"
+          "rawSql": "WITH our_raw AS (  SELECT MIN(flight_score) AS s  FROM forecast_hourly f  WHERE f.location_id = (SELECT id FROM locations WHERE slug = '$launch_site')    AND f.model_run = (SELECT MAX(model_run) FROM forecast_hourly WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site'))    AND f.valid_time AT TIME ZONE 'Europe/Istanbul' >= (CURRENT_DATE + INTERVAL '1 day' + TIME '04:00') AT TIME ZONE 'Europe/Istanbul'    AND f.valid_time AT TIME ZONE 'Europe/Istanbul' <  (CURRENT_DATE + INTERVAL '1 day' + TIME '08:00') AT TIME ZONE 'Europe/Istanbul'), taf AS (SELECT taf_no_fly FROM v_taf_day_flags WHERE local_date = (CURRENT_DATE + INTERVAL '1 day')::date) SELECT LEAST(85, CASE WHEN COALESCE((SELECT taf_no_fly FROM taf), FALSE) THEN LEAST((SELECT s FROM our_raw), 25) ELSE (SELECT s FROM our_raw) END) AS score"
         }
       ]
     },
     {
       "type": "stat",
       "id": 3,
-      "title": "Live METAR — Kapadokya (LTAZ)",
+      "title": "Live METAR - Kapadokya (LTAZ)",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -284,7 +284,7 @@
     {
       "type": "row",
       "id": 101,
-      "title": "Next 10 days — every launch site",
+      "title": "Next 10 days - every launch site",
       "gridPos": {
         "x": 0,
         "y": 49,
@@ -302,7 +302,7 @@
         "type": "postgres",
         "uid": "Balloon-DB"
       },
-      "description": "Worst-case verdict across each morning's 04–07 local launch window for every launch site over the next 10 days.",
+      "description": "Worst-case verdict across each morning's 04-07 local launch window for every launch site over the next 10 days.",
       "gridPos": {
         "x": 0,
         "y": 50,
@@ -371,14 +371,14 @@
             "uid": "Balloon-DB"
           },
           "format": "time_series",
-          "rawSql": "SELECT (local_date + TIME '06:00') AT TIME ZONE 'Europe/Istanbul' AS time, location_name AS metric, CASE WHEN min_score < 40 THEN 'NO CHANCE' WHEN min_score < 70 THEN 'MAYBE' ELSE 'HIGH CHANCE' END AS value FROM v_sunrise_window WHERE local_date >= CURRENT_DATE AND local_date <= CURRENT_DATE + INTERVAL '10 days' ORDER BY time, metric"
+          "rawSql": "SELECT (local_date + TIME '06:00') AT TIME ZONE 'Europe/Istanbul' AS time, location_name AS metric, CASE WHEN min_score < 40 THEN 'NO CHANCE'      WHEN min_score < 70 THEN 'MAYBE'      ELSE 'HIGH CHANCE' END AS value FROM v_sunrise_window_calibrated WHERE local_date >= CURRENT_DATE   AND local_date <= CURRENT_DATE + INTERVAL '10 days' ORDER BY time, metric"
         }
       ]
     },
     {
       "type": "row",
       "id": 102,
-      "title": "Hourly breakdown — $launch_site",
+      "title": "Hourly breakdown - $launch_site",
       "gridPos": {
         "x": 0,
         "y": 32,
@@ -606,7 +606,7 @@
     {
       "type": "timeseries",
       "id": 8,
-      "title": "Visibility (m) — fog risk",
+      "title": "Visibility (m) - fog risk",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -685,7 +685,7 @@
     {
       "type": "timeseries",
       "id": 9,
-      "title": "CAPE (J/kg) & Lifted Index — convective risk",
+      "title": "CAPE (J/kg) & Lifted Index - convective risk",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -817,7 +817,7 @@
     {
       "type": "timeseries",
       "id": 11,
-      "title": "Cloud cover (%) — low / mid / high",
+      "title": "Cloud cover (%) - low / mid / high",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -869,7 +869,7 @@
     {
       "type": "timeseries",
       "id": 12,
-      "title": "Boundary layer height (m) — inversion proxy",
+      "title": "Boundary layer height (m) - inversion proxy",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -985,7 +985,7 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT AVG(CASE WHEN min_score >= 70 THEN 1.0 ELSE 0.0 END) AS go_rate FROM v_sunrise_window WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site') AND local_date BETWEEN CURRENT_DATE - INTERVAL '90 days' AND CURRENT_DATE - INTERVAL '1 day'"
+          "rawSql": "SELECT AVG(CASE WHEN min_score >= 70 THEN 1.0 ELSE 0.0 END) AS go_rate FROM v_sunrise_window_calibrated WHERE location_id = (SELECT id FROM locations WHERE slug = '$launch_site')   AND local_date BETWEEN CURRENT_DATE - INTERVAL '90 days' AND CURRENT_DATE - INTERVAL '1 day'"
         }
       ]
     },
@@ -1098,13 +1098,13 @@
       },
       "options": {
         "mode": "markdown",
-        "content": "**A simple guide for visitors and tour guides.** This page tells you whether balloons are likely to fly over Cappadocia each morning, in plain language.\n\n**HIGH CHANCE** — Conditions look great. Flights very likely.  \n**MAYBE** — Borderline. Operators may run with reduced slots or cancel last minute.  \n**NO CHANCE** — Bad weather expected. Flights almost certainly cancelled.\n\n**Heads up:** This is unofficial. The real call is made by Turkey's Civil Aviation (SHGM) at ~04:00 each morning. Even on **HIGH CHANCE** mornings, weather can shift; even on **NO CHANCE** mornings, conditions can sometimes improve. Always book with an operator that gives you a refund or rebook on cancellation, and add a buffer day or two to your trip.\n\n**What the panels mean (quick translation):**\n- *Wind speeds* — calm is good, strong = grounded.  \n- *Visibility* — fog is the #1 cause of cancellations.  \n- *Precipitation* — any rain or snow grounds flights.  \n- *CAPE / Lifted Index* — thunderstorm risk.  \n- *Boundary layer* — very low at sunrise often means valley fog.\n\nOpen data, open source. Forecasts from [Open-Meteo](https://open-meteo.com), live aviation observations from [aviationweather.gov](https://aviationweather.gov)."
+        "content": "**A simple guide for visitors and tour guides.** This page tells you whether balloons are likely to fly over Cappadocia each morning, in plain language.\n\n**HIGH CHANCE** - Conditions look great. Flights very likely.  \n**MAYBE** - Borderline. Operators may run with reduced slots or cancel last minute.  \n**NO CHANCE** - Bad weather expected. Flights almost certainly cancelled.\n\n**Heads up:** This is unofficial. The real call is made by Turkey's Civil Aviation (SHGM) at ~04:00 each morning. Even on **HIGH CHANCE** mornings, weather can shift; even on **NO CHANCE** mornings, conditions can sometimes improve. Always book with an operator that gives you a refund or rebook on cancellation, and add a buffer day or two to your trip.\n\n**What the panels mean (quick translation):**\n- *Wind speeds* - calm is good, strong = grounded.  \n- *Visibility* - fog is the #1 cause of cancellations.  \n- *Precipitation* - any rain or snow grounds flights.  \n- *CAPE / Lifted Index* - thunderstorm risk.  \n- *Boundary layer* - very low at sunrise often means valley fog.\n\nOpen data, open source. Forecasts from [Open-Meteo](https://open-meteo.com), live aviation observations from [aviationweather.gov](https://aviationweather.gov)."
       }
     },
     {
       "type": "geomap",
       "id": 50,
-      "title": "Cappadocia launch sites — satellite",
+      "title": "Cappadocia launch sites - satellite",
       "datasource": {
         "type": "postgres",
         "uid": "Balloon-DB"
@@ -1293,7 +1293,7 @@
             "uid": "Balloon-DB"
           },
           "format": "table",
-          "rawSql": "SELECT CASE WHEN wind_dir_vrb THEN 'Variable' WHEN wind_dir_deg IS NULL THEN '—' WHEN wind_dir_deg < 22.5 OR wind_dir_deg >= 337.5 THEN 'N (north)' WHEN wind_dir_deg < 67.5  THEN 'NE (north-east)' WHEN wind_dir_deg < 112.5 THEN 'E (east)' WHEN wind_dir_deg < 157.5 THEN 'SE (south-east)' WHEN wind_dir_deg < 202.5 THEN 'S (south)' WHEN wind_dir_deg < 247.5 THEN 'SW (south-west)' WHEN wind_dir_deg < 292.5 THEN 'W (west)' ELSE 'NW (north-west)' END AS direction FROM metar_observations WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz') ORDER BY obs_time DESC LIMIT 1"
+          "rawSql": "SELECT CASE WHEN wind_dir_vrb THEN 'Variable' WHEN wind_dir_deg IS NULL THEN ' - ' WHEN wind_dir_deg < 22.5 OR wind_dir_deg >= 337.5 THEN 'N (north)' WHEN wind_dir_deg < 67.5  THEN 'NE (north-east)' WHEN wind_dir_deg < 112.5 THEN 'E (east)' WHEN wind_dir_deg < 157.5 THEN 'SE (south-east)' WHEN wind_dir_deg < 202.5 THEN 'S (south)' WHEN wind_dir_deg < 247.5 THEN 'SW (south-west)' WHEN wind_dir_deg < 292.5 THEN 'W (west)' ELSE 'NW (north-west)' END AS direction FROM metar_observations WHERE location_id = (SELECT id FROM locations WHERE slug='ltaz') ORDER BY obs_time DESC LIMIT 1"
         }
       ]
     },
@@ -1554,7 +1554,7 @@
               "type": "value",
               "options": {
                 "1": {
-                  "text": "Mismatch — review",
+                  "text": "Mismatch - review",
                   "color": "red",
                   "index": 1
                 }
@@ -1564,7 +1564,7 @@
               "type": "value",
               "options": {
                 "2": {
-                  "text": "Marginal — borderline",
+                  "text": "Marginal - borderline",
                   "color": "yellow",
                   "index": 2
                 }
@@ -1623,7 +1623,7 @@
     {
       "type": "row",
       "id": 305,
-      "title": "Official SHM verdict (today, 04–16 local)",
+      "title": "Official SHM verdict (today, 04-16 local)",
       "gridPos": {
         "x": 0,
         "y": 4,
@@ -1669,7 +1669,7 @@
               "type": "value",
               "options": {
                 "0": {
-                  "text": "🔴 NO-FLY (UÇULMAZ)",
+                  "text": "🔴 GROUNDED - per SHM",
                   "color": "red",
                   "index": 0
                 }
@@ -1679,7 +1679,7 @@
               "type": "value",
               "options": {
                 "1": {
-                  "text": "🟡 RESTRICTED (SARI)",
+                  "text": "🟡 RESTRICTED - per SHM",
                   "color": "yellow",
                   "index": 1
                 }
@@ -1689,7 +1689,7 @@
               "type": "value",
               "options": {
                 "2": {
-                  "text": "🟢 FLY (UÇULUR)",
+                  "text": "🟢 CLEARED - per SHM",
                   "color": "green",
                   "index": 2
                 }
@@ -1700,7 +1700,7 @@
               "options": {
                 "match": "null",
                 "result": {
-                  "text": "— no data —",
+                  "text": " - no SHM data - ",
                   "color": "blue",
                   "index": 3
                 }
@@ -1786,7 +1786,7 @@
           "type": "postgres",
           "uid": "Balloon-DB"
         },
-        "query": "SELECT 'Sektör ' || l.shm_sector || ' · Issued ' || to_char(s.issued_at AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' · Valid ' || to_char(s.valid_from AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || '–' || to_char(s.valid_to AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' local · source shmkapadokya.kapadokya.edu.tr' FROM locations l LEFT JOIN v_shm_latest s ON s.sector = l.shm_sector WHERE l.slug = '$launch_site'",
+        "query": "SELECT 'Sektör ' || l.shm_sector || ' · Issued ' || to_char(s.issued_at AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' · Valid ' || to_char(s.valid_from AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' - ' || to_char(s.valid_to AT TIME ZONE 'Europe/Istanbul', 'HH24:MI') || ' local · source shmkapadokya.kapadokya.edu.tr' FROM locations l LEFT JOIN v_shm_latest s ON s.sector = l.shm_sector WHERE l.slug = '$launch_site'",
         "refresh": 2,
         "current": {
           "selected": false,
@@ -1822,6 +1822,6 @@
   "timezone": "Europe/Istanbul",
   "title": "Cappadocia Balloon Flight Conditions",
   "uid": "cappadocia-balloons",
-  "version": 19,
+  "version": 20,
   "weekStart": ""
 }

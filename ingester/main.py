@@ -6,7 +6,7 @@ Schedules:
   • aviationweather.gov TAF hourly for airports.
   • One-shot ERA5 historical backfill on startup if the table is sparse.
 
-Each job is wrapped in error handling — a failure in one source must not
+Each job is wrapped in error handling - a failure in one source must not
 silently kill the scheduler.
 """
 

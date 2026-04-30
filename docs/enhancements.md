@@ -28,7 +28,7 @@ Compares yesterday's predicted verdict against the live METAR observations from 
 
 ### Sponsor / coffee panel (panel id 64)
 
-A small footer card with a Buy Me a Coffee button and a "Star on GitHub" link. **Replace `buymeacoffee.com/yourname` with your actual handle** before going live. Set your username in the dashboard JSON; the panel is intentionally low-key — non-aggressive.
+A small footer card with a Buy Me a Coffee button and a "Star on GitHub" link. **Replace `buymeacoffee.com/yourname` with your actual handle** before going live. Set your username in the dashboard JSON; the panel is intentionally low-key - non-aggressive.
 
 ## RainViewer rain radar overlay
 
@@ -36,13 +36,13 @@ Added as an XYZ tile layer on the existing satellite Geomap (panel id 50). RainV
 
 If you want to remove it later, drop the layer from the geomap's `options.layers` array.
 
-## PWA — add to home screen
+## PWA - add to home screen
 
 Three static files in `static/`:
 
-- `manifest.webmanifest` — app metadata, icon paths, start URL
-- `sw.js` — minimal service worker (network-first, no aggressive caching — the dashboard's value is freshness)
-- `robots.txt` — search engine indexing hints
+- `manifest.webmanifest` - app metadata, icon paths, start URL
+- `sw.js` - minimal service worker (network-first, no aggressive caching - the dashboard's value is freshness)
+- `robots.txt` - search engine indexing hints
 
 Nginx serves these at the site root (see `nginx/nginx.conf`'s `location /manifest.webmanifest` etc. blocks). Once deployed, mobile visitors see "Add to Home Screen" in their browser menu and the dashboard launches full-screen with the balloon icon.
 
@@ -54,7 +54,7 @@ static/icons/icon-512.png
 static/icons/icon-512-maskable.png
 ```
 
-Generate them once with any tool (Figma, an online PWA icon generator, or `convert input.png -resize 192x192 output.png`). The icons are not in git — they're branded artwork you pick.
+Generate them once with any tool (Figma, an online PWA icon generator, or `convert input.png -resize 192x192 output.png`). The icons are not in git - they're branded artwork you pick.
 
 ## iCal feed
 
@@ -102,10 +102,10 @@ head -30 /tmp/calendar.ics
 
 Documented for future work, not built yet:
 
-- **Public JSON API** at `/api/v1/score?lat=&lon=&date=` — needs a small FastAPI service alongside the ingester.
+- **Public JSON API** at `/api/v1/score?lat=&lon=&date=` - needs a small FastAPI service alongside the ingester.
 - **Status badge** at `/badge.svg` for embedding in blogs/READMEs.
-- **Auto social cards** — cron job that renders a 1080×1080 PNG and posts to Bluesky/Mastodon (free APIs).
-- **Calibration submission form** — needs a small form-handling backend to write to a `flight_outcomes` table.
-- **Sunrise/sunset times** — small ingester change to also store Open-Meteo's `daily.sunrise/sunset` fields in a new `daily_astro` table.
+- **Auto social cards** - cron job that renders a 1080×1080 PNG and posts to Bluesky/Mastodon (free APIs).
+- **Calibration submission form** - needs a small form-handling backend to write to a `flight_outcomes` table.
+- **Sunrise/sunset times** - small ingester change to also store Open-Meteo's `daily.sunrise/sunset` fields in a new `daily_astro` table.
 
 Each is a self-contained afternoon's work. Tackle them in whatever order matches the audience you grow.

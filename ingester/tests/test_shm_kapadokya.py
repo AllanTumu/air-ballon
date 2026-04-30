@@ -31,9 +31,9 @@ PRIMARY_NO_FLY = """
     <div class="col-md-12">
       <ul class="sector-bottom-list">
         <li><h4>GÜNCELLEME TARİHİ ve SAATİ <span>:</span></h4></li>
-        <li><h4>29.04.2026 - 07:12</h4></li>
+        <li><h4>29.04.2026-07:12</h4></li>
         <li><h4>GEÇERLİ TARİH ve SAATLER <span>:</span></h4></li>
-        <li><h4>29.04.2026 - 07:30 - 16:30</h4></li>
+        <li><h4>29.04.2026-07:30-16:30</h4></li>
       </ul>
     </div>
   </div>
@@ -48,9 +48,9 @@ SECONDARY_BLOCK = """
   <img src="assets/flags/yellow-flag.png" class="img-responsive flag-img">
   <ul class="second-sector-bottom-list">
     <li><h4>GÜNCELLEME TARİHİ ve SAATİ <span>:</span></h4></li>
-    <li><h4>29.04.2026 - 07:12</h4></li>
+    <li><h4>29.04.2026-07:12</h4></li>
     <li><h4>GEÇERLİ TARİH ve SAATLER <span>:</span></h4></li>
-    <li><h4>29.04.2026 - 07:30 - 16:30</h4></li>
+    <li><h4>29.04.2026-07:30-16:30</h4></li>
   </ul>
 </div>
 """
@@ -86,7 +86,7 @@ def test_parses_secondary_zone():
 
 
 def test_local_time_converted_to_utc():
-    """29.04.2026 - 07:12 Europe/Istanbul == 04:12 UTC (UTC+3, no DST)."""
+    """29.04.2026-07:12 Europe/Istanbul == 04:12 UTC (UTC+3, no DST)."""
     out = shm.parse_html(PRIMARY_NO_FLY)
     assert out[0].issued_at == datetime(2026, 4, 29, 4, 12, tzinfo=timezone.utc)
     assert out[0].valid_from == datetime(2026, 4, 29, 4, 30, tzinfo=timezone.utc)

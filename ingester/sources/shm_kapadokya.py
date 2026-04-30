@@ -6,7 +6,7 @@ Source page (public, anonymous):
 
 The page is run by Kapadokya Üniversitesi on behalf of SHGM (Turkish DGCA)
 and publishes the day's authoritative go / no-go call per sector. The
-verdict is set manually each morning by the duty meteorologist — there is
+verdict is set manually each morning by the duty meteorologist - there is
 no algorithm to replicate. We just scrape what they post.
 
 Polite usage:
@@ -54,7 +54,7 @@ log = structlog.get_logger(__name__)
 URL = "https://shmkapadokya.kapadokya.edu.tr/"
 TZ = ZoneInfo("Europe/Istanbul")
 
-# Anchors — primary sector heading or secondary zone heading.
+# Anchors - primary sector heading or secondary zone heading.
 # We capture: (sector letter A|B|C, verdict word) for primary,
 # or (None, None, sector number 2..5) for secondary.
 _HEADING_RE = re.compile(
@@ -174,7 +174,7 @@ def parse_html(html: str) -> list[SectorVerdict]:
 
 
 def fetch(client: httpx.Client) -> list[SectorVerdict]:
-    """One scrape pass — returns all parsed verdicts from the live SHM page."""
+    """One scrape pass - returns all parsed verdicts from the live SHM page."""
     log.info("shm_fetch_start", url=URL)
     r = client.get(URL, timeout=15)
     r.raise_for_status()
