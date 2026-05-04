@@ -36,7 +36,11 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
 
   grafana:
-    image: grafana/grafana-oss:11.2.0
+    # Grafana 13.x (OSS). The `grafana/grafana` repo only publishes
+    # CI-suffixed tags like 13.1.0-25196703233-ubuntu — not stable to pin
+    # against. `grafana/grafana-oss` is still publishing clean semver tags
+    # for the OSS build, so we stay on it.
+    image: grafana/grafana-oss:13.0.1
     restart: unless-stopped
     depends_on:
       db:
